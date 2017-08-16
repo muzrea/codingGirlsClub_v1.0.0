@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>账户激活</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script src="../js/anivate.js" ></script>
+    <!--<script src="../../sever.js" ></script>-->
+    <link href="../css/anivate.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+    <div class="container" id="show">
+        <img src="../img/coding.png" height="138" width="740" style="margin-bottom: 20px;"/>
+        <div class="panel panel-success" id="panel">
+            <div class="panel-heading" id="notification"></div>
+            <div class="panel-body" id="pa2">
+                <a href="http://127.0.0.1:8081/html/home.html" style="color: #4cae4c">进入主页</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function(){
+        let currentUrl = window.location.href;
+        let para = currentUrl.split('=');
+        let pa1 = para[1].split('&');
+        let pa2 = para[2].split('&');
+        let s = `/checkCode/?mail=${pa1[0]}&psw=${pa2[0]}&id=${para[2]}`;
+        alert(s);
+        $.get(`/checkCode/?mail=${pa1[0]}&psw=${pa2[0]}`,function(usr,status){
+            console.log(usr);
+            let str = ` <p>亲爱的${usr.usrEmail},您已注册成功.点击下面的链接进入主页：</p>
+                     <!--<p>您已注册成功</p>-->
+                     <!--<p>点击下面的链接进入主页：</p>-->
+                     `
+            console.log(str);
+            $("#notification").append(str);
+        })
+    }
+</script>
+</html>
